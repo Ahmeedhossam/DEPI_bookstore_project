@@ -1,0 +1,43 @@
+@model IEnumerable<Bookstore.Entities.Book>
+
+@{
+	ViewData["Title"] = "Books";
+}
+
+<h2>Books</h2>
+
+@if (Model == null || !Model.Any())
+{
+	<p>No books found.</p>
+}
+else
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Price</th>
+				<th>Published</th>
+				<th>Copies</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach (var book in Model)
+		{
+			<tr>
+				<td>@book.Title</td>
+				<td>@book.Author</td>
+				<td>@book.Price.ToString("C")</td>
+				<td>@book.PublishedDate.ToString("yyyy-MM-dd")</td>
+				<td>@book.CopiesAvailable</td>
+				<td>
+					<a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id">Details</a>
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+}
+
