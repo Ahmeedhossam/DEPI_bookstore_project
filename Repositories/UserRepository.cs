@@ -26,17 +26,10 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             .FirstOrDefaultAsync(u => u.Id == userId);
     }
 
-    public async Task<IEnumerable<User>> GetActiveUsersAsync()
-    {
-        return await _dbSet
-            .Where(u => u.IsActive)
-            .ToListAsync();
-    }
-
     public async Task<IEnumerable<User>> GetAdminUsersAsync()
     {
         return await _dbSet
-            .Where(u => u.IsAdmin && u.IsActive)
+            .Where(u => u.IsAdmin)
             .ToListAsync();
     }
 

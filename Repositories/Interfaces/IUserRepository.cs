@@ -6,7 +6,6 @@ public interface IUserRepository : IRepository<User>
 {
     Task<User?> GetUserByEmailAsync(string email);
     Task<User?> GetUserWithOrdersAsync(int userId);
-    Task<IEnumerable<User>> GetActiveUsersAsync();
     Task<IEnumerable<User>> GetAdminUsersAsync();
     Task<bool> IsEmailUniqueAsync(string email, int? excludeUserId = null);
 }

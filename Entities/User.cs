@@ -17,8 +17,6 @@ public class User : IdentityUser<int>
     [Required]
     public bool IsAdmin { get; set; } = false;
 
-    public bool IsActive { get; set; } = true;
-
     // Navigation to orders placed by the user
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

@@ -4,6 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
+public enum OrderStatus
+{
+    Pending,
+    Processing,
+    Shipped,
+    Delivered,
+    Cancelled
+}
+
 public class Order
 {
     [Key]
@@ -15,6 +24,8 @@ public class Order
 
     [Required]
     public DateTime OrderDate { get; set; } = DateTime.Now;
+
+    public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
     // Each order has multiple OrderItem lines (book + quantity)
     public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
