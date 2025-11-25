@@ -11,6 +11,9 @@ public class User : IdentityUser<int>
     [Required, MaxLength(50)]
     public string LastName { get; set; }
 
+    [MaxLength(200)]
+    public string? Address { get; set; }
+
     [Required]
     public DateTime JoiningDate { get; set; } = DateTime.Now;
 

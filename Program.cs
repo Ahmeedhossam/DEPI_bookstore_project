@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Bookstore.Context;
 using Bookstore.Entities;
 using Microsoft.AspNetCore.Identity;
+using Bookstore.Services.Interfaces;
+using Bookstore.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,6 +23,9 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 })
     .AddEntityFrameworkStores<BookstoreContext>()
     .AddDefaultTokenProviders();
+
+// Register Services
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
