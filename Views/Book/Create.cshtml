@@ -1,11 +1,10 @@
 @model Bookstore.Entities.Book
 @{
-    ViewData["Title"] = "Edit Book";
+    ViewData["Title"] = "Create Book";
 }
-<h3>Edit Book</h3>
-<form asp-action="Edit" method="post" class="row g-3">
+<h3>Add Book</h3>
+<form asp-action="Create" method="post" class="row g-3">
     @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="Id" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="col-md-6">
@@ -44,8 +43,8 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="col-12">
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </div>
 </form>
 

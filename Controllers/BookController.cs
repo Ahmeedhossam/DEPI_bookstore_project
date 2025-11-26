@@ -12,7 +12,8 @@ public class BookController : Controller
         _bookRepository = bookRepository;
     }
 
-    public async Task<IActionResult> Index()
+    // GET: /Book
+    public async Task<IActionResult> Index(string? search)
     {
         var books = await _bookRepository.GetAllAsync();
         return View(books);
