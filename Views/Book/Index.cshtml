@@ -1,1 +1,31 @@
-@* Where users can browse available books, and admin can browse all books *@
+@model IEnumerable<Bookstore.Entities.Book>
+@{
+    ViewData["Title"] = "Books";
+    var success = TempData["Success"] as string;
+}
+<h3>Books</h3>
+
+@if (!string.IsNullOrEmpty(success))
+{
+    <div class="alert alert-success">@success</div>
+}
+
+<form method="get" class="mb-3 d-flex gap-2">
+    <input type="text" name="search" value="@Request.Query["search"]" class="form-control" placeholder="Search by title or author..." />
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+    <a asp-action="Create" class="btn btn-success ms-auto">Add Book</a>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No books found.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+        @foreach (var book in Model)
+        {
+            <partial name="_BookCard" model="book" />
+        }
+    </div>
+}
