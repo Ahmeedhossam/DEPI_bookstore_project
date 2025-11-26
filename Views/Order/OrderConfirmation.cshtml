@@ -1,0 +1,20 @@
+@model Bookstore.Entities.Order
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div class="container mt-5 text-center">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body py-5">
+            <h1 class="text-success mb-4"><i class="bi bi-check-circle-fill"></i> Order Placed!</h1>
+            <h4 class="mb-3">Thank you for your order.</h4>
+            <p class="lead">Your order number is <strong>#@Model.Id</strong>.</p>
+            <p>We will process it shortly.</p>
+            <div class="mt-4">
+                <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary">View My Orders</a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</div>

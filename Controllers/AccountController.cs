@@ -120,4 +120,115 @@ public class AccountController : Controller
     {
         return View();
     }
+
+    // GET: /Account/Index (Profile)
+    [Authorize]
+    public async Task<IActionResult> Index()
+    {
+        var user = await _authService.GetCurrentUserAsync(User);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return View(user);
+    }
+
+    // GET: /Account/EditProfile
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> EditProfile()
+    {
+        var user = await _authService.GetCurrentUserAsync(User);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var model = new EditProfileViewModel
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber,
+            Address = user.Address
+        };
+
+        return View(model);
+    }
+
+    // POST: /Account/EditProfile
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var user = await _authService.GetCurrentUserAsync(User);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        user.FirstName = model.FirstName;
+        user.LastName = model.LastName;
+        user.PhoneNumber = model.PhoneNumber;
+        user.Address = model.Address;
+
+        var result = await _authService.UpdateUserAsync(user);
+        if (result.Succeeded)
+        {
+            TempData["SuccessMessage"] = "Profile updated successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+
+        return View(model);
+    }
+
+    // GET: /Account/ChangePassword
+    [Authorize]
+    [HttpGet]
+    public IActionResult ChangePassword()
+    {
+        return View();
+    }
+
+    // POST: /Account/ChangePassword
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var user = await _authService.GetCurrentUserAsync(User);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var result = await _authService.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+        if (result.Succeeded)
+        {
+            TempData["SuccessMessage"] = "Password changed successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+
+        return View(model);
+    }
 }

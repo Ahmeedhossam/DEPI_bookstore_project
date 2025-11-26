@@ -4879,30 +4879,38 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 9.0.9",
+      "Microsoft.EntityFrameworkCore >= 9.0.9",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.9"
     ]
   },
   "packageFolders": {
-    "/home/omar/.nuget/packages/": {}
+    "C:\\Users\\at991\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/omar/1B3FDDF771821E7C/DEPI/Round 3/DEPI_bookstore/DEPI_bookstore.csproj",
+      "projectUniqueName": "D:\\Courses\\DEPI\\DEPI_bookstore_project\\DEPI_bookstore.csproj",
       "projectName": "DEPI_bookstore",
-      "projectPath": "/media/omar/1B3FDDF771821E7C/DEPI/Round 3/DEPI_bookstore/DEPI_bookstore.csproj",
-      "packagesPath": "/home/omar/.nuget/packages/",
-      "outputPath": "/media/omar/1B3FDDF771821E7C/DEPI/Round 3/DEPI_bookstore/obj/",
+      "projectPath": "D:\\Courses\\DEPI\\DEPI_bookstore_project\\DEPI_bookstore.csproj",
+      "packagesPath": "C:\\Users\\at991\\.nuget\\packages\\",
+      "outputPath": "D:\\Courses\\DEPI\\DEPI_bookstore_project\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/omar/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\at991\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4928,6 +4936,10 @@
         "targetAlias": "net9.0",
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[9.0.9, )"
+          },
+          "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[9.0.9, )"
           },
@@ -4967,7 +4979,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -26,5 +26,10 @@ public interface IAuthService
     
     // Validation
     Task<bool> IsEmailUniqueAsync(string email);
+
     Task<bool> CheckPasswordAsync(User user, string password);
+
+    // User Management
+    Task<User?> GetCurrentUserAsync(System.Security.Claims.ClaimsPrincipal user);
+    Task<IdentityResult> UpdateUserAsync(User user);
 }

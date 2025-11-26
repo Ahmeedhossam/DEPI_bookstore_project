@@ -1,8 +1,72 @@
-﻿@{
+﻿@model IEnumerable<Bookstore.Entities.Book>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Welcome to DEPI Bookstore</h1>
+            <p class="col-md-8 fs-4 mx-auto">Discover your next favorite book from our extensive collection.</p>
+            <a href="#books-section" class="btn btn-light btn-lg" type="button">Browse Books</a>
+        </div>
+    </div>
+</div>
+
+<div id="books-section" class="container">
+    <h2 class="mb-4 border-bottom pb-2">Featured Books</h2>
+    
+    <form asp-controller="Home" asp-action="Index" method="get" class="mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="searchString" class="form-control" placeholder="Search by title or author..." value="@Context.Request.Query["searchString"]">
+            </div>
+            <div class="col-md-3">
+                <select name="categoryId" class="form-select" asp-items="ViewBag.Categories">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+            <div class="col-md-2">
+                <a asp-action="Index" class="btn btn-outline-secondary w-100">Reset</a>
+            </div>
+        </div>
+    </form>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(item.CoverImageUrl))
+                    {
+                        <img src="@item.CoverImageUrl" class="card-img-top" alt="@item.Title" style="height: 300px; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 300px;">
+                            <span>No Image Available</span>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate" title="@item.Title">@item.Title</h5>
+                        <p class="card-text text-muted">by @item.Author</p>
+                        <p class="card-text text-truncate">@item.Description</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a asp-controller="Book" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View Details</a>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-bookId="@item.Id" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+                            </div>
+                            <small class="text-muted">@item.Price.ToString("C")</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

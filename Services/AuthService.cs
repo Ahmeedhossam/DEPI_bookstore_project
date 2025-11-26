@@ -29,6 +29,10 @@ public class AuthService : IAuthService
         };
 
         var result = await _userManager.CreateAsync(user, password);
+        if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, "User");
+        }
         return result;
     }
 
@@ -98,5 +102,10 @@ public class AuthService : IAuthService
     public async Task<bool> CheckPasswordAsync(User user, string password)
     {
         return await _userManager.CheckPasswordAsync(user, password);
+    }
+
+    public async Task<IdentityResult> UpdateUserAsync(User user)
+    {
+        return await _userManager.UpdateAsync(user);
     }
 }

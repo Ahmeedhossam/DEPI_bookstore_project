@@ -1,0 +1,65 @@
+@model IEnumerable<Bookstore.Entities.Order>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<div class="container mt-4">
+    <h2>Manage Orders</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>#@item.Id</td>
+                                <td>@item.User.Email</td>
+                                <td>@item.OrderDate.ToString("g")</td>
+                                <td>@item.TotalPrice.ToString("C")</td>
+                                <td>
+                                    <span class="badge bg-@(item.Status == Bookstore.Entities.OrderStatus.Delivered ? "success" : item.Status == Bookstore.Entities.OrderStatus.Pending ? "warning" : "primary")">
+                                        @item.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <form asp-action="UpdateOrderStatus" method="post" class="d-flex align-items-center">
+                                        <input type="hidden" name="orderId" value="@item.Id" />
+                                        <select name="status" class="form-select form-select-sm me-2" style="width: 120px;">
+                                            <option value="Pending" selected="@(item.Status == Bookstore.Entities.OrderStatus.Pending)">Pending</option>
+                                            <option value="Processing" selected="@(item.Status == Bookstore.Entities.OrderStatus.Processing)">Processing</option>
+                                            <option value="Shipped" selected="@(item.Status == Bookstore.Entities.OrderStatus.Shipped)">Shipped</option>
+                                            <option value="Delivered" selected="@(item.Status == Bookstore.Entities.OrderStatus.Delivered)">Delivered</option>
+                                            <option value="Cancelled" selected="@(item.Status == Bookstore.Entities.OrderStatus.Cancelled)">Cancelled</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
